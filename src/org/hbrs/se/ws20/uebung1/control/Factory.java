@@ -1,11 +1,9 @@
 package org.hbrs.se.ws20.uebung1.control;
-import org.hbrs.se.ws20.uebung1.control.GermanTranslator;
-/**
- * @author bkuelh2s
- */
-public class Factory {
-    public static GermanTranslator createGermanTranslator() {
 
+public class Factory {
+
+    public Translator createTranslator() {
         return new GermanTranslator();
     }
+
 }

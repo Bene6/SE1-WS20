@@ -2,7 +2,7 @@ package org.hbrs.se.ws20.uebung2;
 /**
  * @author bkuelh2s
  */
-import org.hbrs.se.ws20.uebung3.persistance.PersistenceException;
+import org.hbrs.se.ws20.uebung3.persistence.PersistenceException;
 
 import java.util.ArrayList;
 import java.util.Iterator;

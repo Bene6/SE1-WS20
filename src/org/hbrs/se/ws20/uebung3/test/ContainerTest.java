@@ -1,16 +1,17 @@
 package org.hbrs.se.ws20.uebung3.test;
-/**
- * @author bkuelh2s
- */
+
 import org.hbrs.se.ws20.uebung3.control.Container;
 import org.hbrs.se.ws20.uebung3.control.ContainerException;
 import org.hbrs.se.ws20.uebung3.control.Member;
-import org.hbrs.se.ws20.uebung3.control.MemberKonkret;
+import org.hbrs.se.ws20.uebung3.control.MemberGenau;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * @author bkuelh2s
+ */
 class ContainerTest {
 
     @BeforeEach
@@ -20,11 +21,11 @@ class ContainerTest {
     @Test
     void addMember() {
         // Test-Objekte anlegen
-        Member r1 = new MemberKonkret(12);
-        Member r2 = new MemberKonkret(32);
-        Member r3 = new MemberKonkret(112);
-        Member r4 = new MemberKonkret(1211);
-        Member r5 = new MemberKonkret(934);
+        Member r1 = new MemberGenau(12);
+        Member r2 = new MemberGenau(32);
+        Member r3 = new MemberGenau(112);
+        Member r4 = new MemberGenau(1211);
+        Member r5 = new MemberGenau(934);
 
         // Den Container anlegen
         Container store = new Container();
@@ -83,4 +84,3 @@ class ContainerTest {
         store.dump();
 
     }
-}

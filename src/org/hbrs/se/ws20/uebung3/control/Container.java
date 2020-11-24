@@ -1,79 +1,114 @@
 package org.hbrs.se.ws20.uebung3.control;
+import org.hbrs.se.ws20.uebung3.persistence.PersistenceException;
+import org.hbrs.se.ws20.uebung3.persistence.PersistenceStrategyStream;
+import org.hbrs.se.ws20.uebung3.view.MemberView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author bkuelh2s
  */
-import org.hbrs.se.ws20.uebung2.ContainerException;
-import org.hbrs.se.ws20.uebung2.Member;
-import org.hbrs.se.ws20.uebung3.persistance.PersistenceException;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 public class Container {
 
-    //CR1 Zugriff nur noch innerhalb der Klasse
+    /*
+     * Leerer Konstruktor
+     */
+    // CR1 nur noch innerhalb der Klasse Zugriff
     private Container(){
     }
-    //Singleton Pattern
+
     private static Container instanz = null;
-    public static Container getInstance(){
-        if(instanz == null){
+
+    //Singleton Pattern
+    public static Container getInstance() {
+        if(instanz == null) {
             instanz = new Container();
         }
         return instanz;
     }
+    /*
+     * Interne ArrayList zur Abspeicherung der Objekte
+     * Alternative: HashMap oder Set. HashMap hat vor allem Probleme
+     * bei der Bewahrung der Konsistenz vom Key und Value (siehe TestStore, letzter Test)
+     */
+    private List<Member> liste = new ArrayList<Member>();
 
-    //Funktionale Anforderung 1
-    private List <Member> liste = new ArrayList<Member>();
-
-    //CR2
+    // CR2
     public void store() throws PersistenceException {
-
+        PersistenceStrategyStream.save();
     }
 
     public void load() throws PersistenceException {
+        PersistenceStrategyStream.load(liste);
+    }
+
+    /*
+     * Methode zum Hinzufuegen einer Member.
+     * @throws ContainerException
+     */
+    public void addMember ( Member r ) throws ContainerException {
+        if ( contains( r ) == true ) {
+            ContainerException ex = new ContainerException();
+            ex.addID ( r.getID() );
+            throw ex;
+        }
+        liste.add( r );
 
     }
 
-
-
-    public void addMember(Member member) throws ContainerException {
-    Integer id = member.getID();
-        for(Member mem : liste) {
-            if(mem.getID() == id) {
-                ContainerException e = new ContainerException();
-                throw e;
+    /*
+     * Methode zur Ueberpruefung, ob ein Member-Objekt in der Liste enthalten ist
+     *
+     */
+    private boolean contains(Member r) {
+        Integer ID = r.getID();
+        for ( Member rec : liste) {
+            // wichtig: Check auf die Values innerhalb der Integer-Objekte!
+            if ( rec.getID().intValue() == ID.intValue() ) {
+                return true;
             }
         }
+        return false;
+
+        // liste.contains(r), falls equals-Methode in Member ueberschrieben.
     }
-    //Funktionale Anforderung 2
-    public String deleteMember(Integer id) {
-        Member m = null;
-    for(Member mem : liste) {
-        if (mem.getID() == id){
-            m = mem;
+    /*
+     * Methode zum Loeschen einer Member
+     *
+     */
+    public String deleteMember( Integer id ) {
+        Member rec = getMember( id );
+        if (rec == null) return "Member nicht enthalten - ERROR"; else {
+            liste.remove(rec);
+            return "Member mit der ID " + id + " konnte geloescht werden";
         }
     }
-    if(m == null) {
-        return "Member konnte nicht gelöscht werden";
-    }
-    else {
-        return " Der Member mit der ID: " + id + " konnte gelöscht werden";
-    }
-    }
 
-    // Funktionale Anforderung 3
-    public void dump() {
-        Iterator<Member> i = liste.iterator();
-            while(i.hasNext()) {
-                Member m = i.next();
-                System.out.println("Member (id=" + m.getID() + ")");
-            }
-    }
-    //Funktionale Anforderung 4
+    /*
+     * Methode zur Bestimmung der Anzahl der von Member-Objekten
+     * Aufruf der Methode size() aus List
+     *
+     */
     public int size(){
         return liste.size();
+    }
+
+    public void getCurrentList(List<Member> l){
+        MemberView.dump(l);
+    }
+    /*
+     * Interne Methode zur Ermittlung einer Member
+     *
+     */
+    private Member getMember(Integer id) {
+        for ( Member rec : liste) {
+            if (id == rec.getID().intValue() ){
+                return rec;
+            }
+        }
+        return null;
     }
 
 }

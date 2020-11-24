@@ -2,13 +2,40 @@ package org.hbrs.se.ws20.uebung2;
 /**
  * @author bkuelh2s
  */
+import org.hbrs.se.ws20.uebung3.persistence.PersistenceException;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class Container {
+
+    //CR1 Zugriff nur noch innerhalb der Klasse
+    private Container(){
+    }
+    //Singleton Pattern
+    private static Container instanz = null;
+    public static Container getInstance(){
+        if(instanz == null){
+            instanz = new Container();
+        }
+        return instanz;
+    }
+
     //Funktionale Anforderung 1
     private List <Member> liste = new ArrayList<Member>();
+
+    //CR2
+    public void store() throws PersistenceException {
+
+    }
+
+    public void load() throws PersistenceException {
+
+    }
+
+
+
     public void addMember(Member member) throws ContainerException {
     Integer id = member.getID();
         for(Member mem : liste) {

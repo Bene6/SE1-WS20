@@ -1,4 +1,6 @@
-package org.hbrs.se.ws20.uebung3.persistence;
+package org.hbrs.se.ws20.uebung3.persistance;
+
+import org.hbrs.se.ws20.uebung3.persistance.PersistenceException;
 
 import java.util.List;
 

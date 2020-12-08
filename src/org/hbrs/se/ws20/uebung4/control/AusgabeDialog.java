@@ -1,6 +1,6 @@
 package org.hbrs.se.ws20.uebung4.control;
 
-import org.hbrs.se.ws20.prototype.uebung4.UserStory;
+import org.hbrs.se.ws20.uebung4.UserStory;
 import org.hbrs.se.ws20.uebung4.model.Container;
 
 import java.util.Collections;

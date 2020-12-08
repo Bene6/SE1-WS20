@@ -1,6 +1,6 @@
 package org.hbrs.se.ws20.uebung4.model;
 
-import org.hbrs.se.ws20.prototype.uebung4.ContainerException;
+import org.hbrs.se.ws20.uebung4.ContainerException;
 
 import java.io.*;
 import java.util.List;

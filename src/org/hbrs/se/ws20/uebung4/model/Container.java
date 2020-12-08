@@ -1,13 +1,13 @@
 package org.hbrs.se.ws20.uebung4.model;
 
-import org.hbrs.se.ws20.prototype.uebung4.ContainerException;
-import org.hbrs.se.ws20.prototype.uebung4.UserStory;
+import org.hbrs.se.ws20.uebung4.ContainerException;
+import org.hbrs.se.ws20.uebung4.UserStory;
+import org.hbrs.se.ws20.uebung4.model.persistence.PersistenceException;
+import org.hbrs.se.ws20.uebung4.persistence.PersistenceStrategyStream;
 
-import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
+
 /*
  * Klasse zum Management sowie zur Eingabe unnd Ausgabe von User Stories.
  * Die Anwendung wird über dies Klasse auch gestartet (main-Methode hier vorhanden)
@@ -47,7 +47,13 @@ public class Container {
 	private Container(){
 		liste = new ArrayList<UserStory>();
 	}
+	public void store() throws PersistenceException {
+		PersistenceStrategyStream.save();
+	}
 
+	public void load() throws PersistenceException {
+		PersistenceStrategyStream.load(this.liste);
+	}
 	/**
 	 * Methode zum Hinzufügen einer Story unter Wahrung der Schlüsseleigenschaft
 	 * @param r
